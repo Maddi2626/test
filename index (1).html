@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Heart Diagram</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+      text-align: center;
+    }
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .highlighted {
+      fill: orange !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>How Blood Flows Through the Heart</h1>
+  <!-- Start of SVG -->
+  <div id="diagram">
+    <!-- This simplified SVG is for demo purposes -->
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <circle id="vena_cava" cx="50" cy="50" r="30" fill="#a9a9a9"><title>Vena Cava</title></circle>
+      <circle id="right_atrium" cx="100" cy="100" r="30" fill="#87cefa"><title>Right Atrium</title></circle>
+      <circle id="tricuspid_valve" cx="100" cy="150" r="10" fill="#4682b4"><title>Tricuspid Valve</title></circle>
+      <circle id="right_ventricle" cx="100" cy="200" r="30" fill="#1e90ff"><title>Right Ventricle</title></circle>
+      <circle id="pulmonary_artery" cx="150" cy="150" r="20" fill="#4169e1"><title>Pulmonary Artery</title></circle>
+      <circle id="lungs" cx="200" cy="100" r="30" fill="#98fb98"><title>Lungs</title></circle>
+      <circle id="pulmonary_vein" cx="250" cy="50" r="20" fill="#fa8072"><title>Pulmonary Vein</title></circle>
+      <circle id="left_atrium" cx="250" cy="100" r="30" fill="#ff6347"><title>Left Atrium</title></circle>
+      <circle id="mitral_valve" cx="250" cy="150" r="10" fill="#dc143c"><title>Mitral Valve</title></circle>
+      <circle id="left_ventricle" cx="250" cy="200" r="30" fill="#b22222"><title>Left Ventricle</title></circle>
+      <circle id="aorta" cx="200" cy="250" r="30" fill="#8b0000"><title>Aorta</title></circle>
+    </svg>
+  </div>
+
+  <!-- Instructions -->
+  <p>Click anywhere to step through how blood flows through the heart.</p>
+
+  <!-- JavaScript -->
+  <script>
+    const parts = [
+      "vena_cava",
+      "right_atrium",
+      "tricuspid_valve",
+      "right_ventricle",
+      "pulmonary_artery",
+      "lungs",
+      "pulmonary_vein",
+      "left_atrium",
+      "mitral_valve",
+      "left_ventricle",
+      "aorta"
+    ];
+    let currentStep = 0;
+
+    function highlightNextPart() {
+      // Reset all
+      parts.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("highlighted");
+      });
+
+      // Highlight current
+      const currentId = parts[currentStep];
+      const el = document.getElementById(currentId);
+      if (el) el.classList.add("highlighted");
+
+      currentStep = (currentStep + 1) % parts.length;
+    }
+
+    document.addEventListener("click", highlightNextPart);
+  </script>
+</body>
+</html>
